@@ -151,13 +151,27 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let str = "";
+    for (let i = 0; i < nums.length - 1; i++) {
+        let range = [];
+        range.push(nums[i])
+        for (let j = i + 1; j < nums.length; j++) {
+            if (nums[j] - nums[j - 1] == 1) range.push(nums[j])
+            else break
+            i = j
+        }
+        if (range.length > 2) str += `${range[0]}-${range[range.length - 1]}`
+        else if (range.length == 2) str += `${range[0]},${range[1]}`
+        else if (range.length == 1) str += `${range[0]}`
+        if (i != nums.length - 1) str += ","
+    }
+    return str
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+    createCompassPoints: createCompassPoints,
+    expandBraces: expandBraces,
+    getZigZagMatrix: getZigZagMatrix,
+    canDominoesMakeRow: canDominoesMakeRow,
+    extractRanges: extractRanges
 };
