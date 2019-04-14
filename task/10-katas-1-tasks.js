@@ -17,8 +17,22 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    class CompasPoint {
+        constructor(abbreviation, azimuth) {
+            this.abbreviation = abbreviation;
+            this.azimuth = azimuth;
+        }
+    }
+
+    var result = [];
+    var sides = ['N', 'E', 'S', 'W'];
+    var abbreviationTemplates = ["1", "1b2", "112", "12b1", "12", "12b2", "212", "2b1", '1', '1b2', '121', '21b1', '21', '21b2', '221', '2b1'];
+    for (let i = 0; i < 32; i++) {
+        let azimuth = i * 11.25;
+        let abbreviation = abbreviationTemplates[i % 16].replace(/1/g, sides[Math.floor(i / 8)]).replace(/2/g, sides[(Math.floor(i / 8) + 1) % 4]);
+        result.push(new CompasPoint(abbreviation, azimuth));
+    }
+    return result;
 }
 
 
